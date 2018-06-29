@@ -3,24 +3,26 @@ import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { authenticateFromStorage, logout, login } from "../actions";
+import { authenticateFromStorage, logout, login, initChat } from "../actions";
 import LoginScreen from "./LoginScreen";
 import SignupScreen from "./SignupScreen";
+import ChatScreen from "./ChatScreen";
 
 class Navigator extends Component {
   constructor(props) {
     super(props);
 
-    // props.logout();
     props.authenticateFromStorage();
+    props.initChat();
   }
 
   getAuthenticatedScreen() {
-    return (
-      <View>
-        <Button onPress={this.props.logout} title="Logout" color="#841584" />
-      </View>
-    );
+    return (<ChatScreen />)
+    // return (
+    //   <View>
+    //     <Button onPress={this.props.logout} title="Logout" color="#841584" />
+    //   </View>
+    // );
   }
 
   getLoginScreen() {
@@ -47,7 +49,8 @@ const mapDispatchToProps = dispatch =>
     {
       authenticateFromStorage,
       logout,
-      login
+      login,
+      initChat,
     },
     dispatch
   );

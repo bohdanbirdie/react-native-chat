@@ -4,6 +4,7 @@ import {
   Text,
   View,
   TouchableHighlight,
+  TouchableOpacity,
   ActivityIndicator
 } from "react-native";
 
@@ -22,24 +23,25 @@ export default class Button extends Component {
 
   render() {
     return (
-      <TouchableHighlight onPress={this.props.onPress}>
-        <View style={[styles.container, this.props.style]}>
-          {this.getButtonChild()}
-        </View>
-      </TouchableHighlight>
+      <TouchableOpacity
+        onPress={this.props.onPress}
+        style={[styles.container, this.props.style]}
+      >
+        {this.getButtonChild()}
+      </TouchableOpacity>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    minWidth: 100,
-    height: 35,
+    minWidth: 60,
+    minHeight: 25,
     alignItems: "center",
     justifyContent: "center",
-    padding: 5,
   },
   text: {
-    color: "black"
+    color: "black",
+    fontWeight: "bold"
   }
 });
