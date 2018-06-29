@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import { authenticateFromStorage, logout, login } from "../actions";
+import LoginScreen from "./LoginScreen";
+import SignupScreen from "./SignupScreen";
 
 class Navigator extends Component {
   constructor(props) {
@@ -16,25 +18,13 @@ class Navigator extends Component {
   getAuthenticatedScreen() {
     return (
       <View>
-        <Button
-          onPress={this.props.logout}
-          title="Logout"
-          color="#841584"
-        />
+        <Button onPress={this.props.logout} title="Logout" color="#841584" />
       </View>
     );
   }
 
   getLoginScreen() {
-    return (
-      <View>
-        <Button
-          onPress={this.props.login}
-          title="Login"
-          color="green"
-        />
-      </View>
-    );
+    return this.props.isLogin ? <LoginScreen /> : <SignupScreen />;
   }
   getScreen() {
     return this.props.authenticated
@@ -43,16 +33,13 @@ class Navigator extends Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>{this.getScreen()}</Text>
-      </View>
-    );
+    return <View>{this.getScreen()}</View>;
   }
 }
 
 const mapStateToProps = state => ({
-  authenticated: state.sessionReducer.authenticated
+  authenticated: state.sessionReducer.authenticated,
+  isLogin: state.sessionReducer.isLogin
 });
 
 const mapDispatchToProps = dispatch =>
@@ -82,6 +69,6 @@ const styles = StyleSheet.create({
     width: 80,
     borderColor: "black",
     borderWidth: 1,
-    backgroundColor: '#cccccc'
+    backgroundColor: "#cccccc"
   }
 });

@@ -1,12 +1,18 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  KeyboardAvoidingView
+} from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { login, switchToSignUp } from "../actions";
+import { signUp, switchToLogin } from "../actions";
 import Button from "../components/button";
 
-class LoginScreen extends Component {
+class SignupScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +23,7 @@ class LoginScreen extends Component {
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <Text style={styles.heading}>Login page</Text>
+        <Text style={styles.heading}>Registration</Text>
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -37,19 +43,19 @@ class LoginScreen extends Component {
 
         <Button
           onPress={() =>
-            this.props.login(this.state.email, this.state.password)
+            this.props.signUp(this.state.email, this.state.password)
           }
           style={styles.button}
-          text="Login"
+          text="Sign Up"
           loading={this.props.loading}
         />
 
         <Button
           onPress={() =>
-            this.props.switchToSignUp()
+            this.props.switchToLogin()
           }
           style={styles.button}
-          text="To Sign Up page"
+          text="To Login page"
         />
       </KeyboardAvoidingView>
     );
@@ -57,14 +63,14 @@ class LoginScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  loading: state.sessionReducer.fetching,
+  loading: state.sessionReducer.fetching
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      switchToSignUp,
-      login
+      signUp,
+      switchToLogin
     },
     dispatch
   );
@@ -72,7 +78,7 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginScreen);
+)(SignupScreen);
 
 const styles = StyleSheet.create({
   container: {
@@ -84,8 +90,8 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 35,
-    fontWeight: 'bold',
-    margin: 20,
+    fontWeight: "bold",
+    margin: 20
   },
   input: {
     width: "80%",
@@ -94,14 +100,14 @@ const styles = StyleSheet.create({
     padding: 5,
     margin: 10,
     borderRadius: 5,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     color: "black"
   },
   button: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 5,
     borderWidth: 0.5,
-    borderColor: '#ccc',
-    margin: 20,
+    borderColor: "#ccc",
+    margin: 20
   }
 });

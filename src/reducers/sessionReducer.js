@@ -3,12 +3,15 @@ import {
     AUTH_SUCCESS,
     AUTH_ERROR,
     LOGOUT,
+    SWITCH_TO_SIGNUP,
+    SWITCH_TO_LOGIN
   } from '../actions';
   
   const initialState = {
     authenticated: false,
     fetching: false,
     error: null,
+    isLogin: true,
   };
   
   export default (state = initialState, action) => {
@@ -38,6 +41,18 @@ import {
         return {
           ...state,
           authenticated: false,
+        };
+    
+    case SWITCH_TO_SIGNUP:
+        return {
+          ...state,
+          isLogin: false,
+        };
+    
+    case SWITCH_TO_LOGIN:
+        return {
+          ...state,
+          isLogin: true,
         };
 
       default:
